@@ -20,6 +20,7 @@ NGHTTP2="1.40.0"	# https://nghttp2.org/
 engine=""
 buildnghttp2="-n"
 disablebitcode=""
+enabledebug=""
 colorflag=""
 
 # Formatting
@@ -41,7 +42,7 @@ usage ()
     echo
 	echo -e "${bold}Usage:${normal}"
 	echo
-	echo -e "  ${subbold}$0${normal} [-o ${dim}<OpenSSL version>${normal}] [-c ${dim}<curl version>${normal}] [-n ${dim}<nghttp2 version>${normal}] [-d] [-e] [-x] [-h]"
+	echo -e "  ${subbold}$0${normal} [-o ${dim}<OpenSSL version>${normal}] [-c ${dim}<curl version>${normal}] [-n ${dim}<nghttp2 version>${normal}] [-d] [-e] [-b] [-g] [-x] [-h]"
 	echo 
 	echo "         -o <version>   Build OpenSSL version (default $OPENSSL)"
 	echo "         -c <version>   Build curl version (default $LIBCURL)"
@@ -49,13 +50,14 @@ usage ()
 	echo "         -d             Compile without HTTP2 support"
 	echo "         -e             Compile with OpenSSL engine support"
 	echo "         -b             Compile without bitcode"
+	echo "         -g             Enable debug build options"
 	echo "         -x             No color output"
 	echo "         -h             Show usage"
 	echo 
     exit 127
 }
 
-while getopts "o:c:n:debxh\?" o; do
+while getopts "o:c:n:debgxh\?" o; do
     case "${o}" in
 		o)
 			OPENSSL="${OPTARG}"
@@ -74,6 +76,9 @@ while getopts "o:c:n:debxh\?" o; do
 			;;
 		b)
 			disablebitcode="-b"
+			;;
+		g)
+			enabledebug="-g"
 			;;
 		x)
 			bold=""
@@ -119,7 +124,7 @@ fi
 echo
 echo -e "${bold}Building Curl${normal}"
 cd curl
-./libcurl-build.sh -v "$LIBCURL" $disablebitcode $colorflag $buildnghttp2
+./libcurl-build.sh -v "$LIBCURL" $disablebitcode $enabledebug $colorflag $buildnghttp2
 cd ..
 
 echo 

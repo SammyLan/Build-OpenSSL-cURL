@@ -8,7 +8,7 @@ The `build.sh` script calls the three build scripts below (openssl, nghttp and c
 The build script accept several arguments to adjust versions and toggle features:
 
 ```
-  ./build.sh [-o <OpenSSL version>] [-c <curl version>] [-n <nghttp2 version>] [-d] [-e] [-x] [-h]
+  ./build.sh [-o <OpenSSL version>] [-c <curl version>] [-n <nghttp2 version>] [-d] [-e] [-b] [-g] [-x] [-h]
 
          -o <version>   Build OpenSSL version (default 1.1.1d)
          -c <version>   Build curl version (default 7.68.0)
@@ -16,6 +16,7 @@ The build script accept several arguments to adjust versions and toggle features
          -d             Compile without HTTP2 support
          -e             Compile with OpenSSL engine support
          -b             Compile without bitcode
+         -g             Enable debug build options
          -x             No color output
          -h             Show usage
 ```
